@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Save Web Form Data to Spreadsheets</title>
+	<script
+		src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+	<script>
+		function SubForm (){
+			$.ajax({
+				url:"https://api.apispreadsheets.com/data/8999/",
+				type:"post",
+				data:$("#myForm").serializeArray(),
+				success: function(){
+					alert("Form Data Submitted :)")
+				},
+				error: function(){
+					alert("There was an error :(")
+				}
+			});
+		}
+	</script>
+</head>
+<body>
+	<form id="myForm">
+		<label>full_name</label>
+		<input name="full_name" />
+		<br/>
+		<label>email</label>
+		<input name="email" />
+		<br/>
+		<label>date</label>
+		<input name="date" />
+		<br/>
+		<label>city</label>
+		<input name="city" />
+		<br/>
+		<label>uf</label>
+		<input name="uf" />
+		<br/>
+		<label>sex</label>
+		<input name="sex" />
+		<br/>
+		<label>rga</label>
+		<input name="rga" />
+		<br/>
+		<label>ed1</label>
+		<input name="ed1" />
+		<br/>
+		<label>ed2</label>
+		<input name="ed2" />
+		<br/>
+		<label>p2</label>
+		<input name="p2" />
+		<br/>
+		<label>p3</label>
+		<input name="p3" />
+		<br/>
+		<label>s1</label>
+		<input name="s1" />
+		<br/>
+		<label>s2</label>
+		<input name="s2" />
+		<br/>
+		<label>s3</label>
+		<input name="s3" />
+		<br/>
+		<label>s4</label>
+		<input name="s4" />
+		<br/>
+		<label>t1</label>
+		<input name="t1" />
+		<br/>
+		<label>t2</label>
+		<input name="t2" />
+		<br/>
+		<label>t3</label>
+		<input name="t3" />
+		<br/>
+		<label>t4</label>
+		<input name="t4" />
+		<br/>
+		<label>qua1</label>
+		<input name="qua1" />
+		<br/>
+		<label>qua2</label>
+		<input name="qua2" />
+		<br/>
+		<label>qua3</label>
+		<input name="qua3" />
+		<br/>
+		<label>qua4</label>
+		<input name="qua4" />
+		<br/>
+		<label>qui1</label>
+		<input name="qui1" />
+		<br/>
+		<label>qui2</label>
+		<input name="qui2" />
+		<br/>
+		<label>qui3</label>
+		<input name="qui3" />
+		<br/>
+		<label>sx1</label>
+		<input name="sx1" />
+		<br/>
+		<label>sx2</label>
+		<input name="sx2" />
+		<br/>
+		<label>sx3</label>
+		<input name="sx3" />
+		<br/>
+		<label>sx4</label>
+		<input name="sx4" />
+		<br/>
+		<label>url</label>
+		<input name="url" />
+		<br/>
+	</form>
+	<button onclick='SubForm()'>Submit</button>
+</body>
+</html>

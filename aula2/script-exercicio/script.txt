@@ -1,0 +1,20 @@
+<!-- colocar dentro da tag <head> abaixo da tag <title> -->
+<script>
+function SubForm (){
+    $.ajax({
+        url:'https://api.apispreadsheets.com/data/9002/',
+        type:'post',
+        data:$("#myForm").serializeArray(),
+        success: function(){
+          alert("Dados enviados com sucesso :)")
+          location.reload();
+        },
+        error: function(){
+          alert("Houve um problema :(")
+        }
+    });
+}
+</script>
+
+<!-- colocar fora do formulário, abaixo da tag </form> -->
+<button onclick="SubForm()">Enviar</button>
