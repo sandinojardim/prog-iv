@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Exemplo Atividade 2 - Módulo 1 - P_IV</title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script>
+function SubForm (){
+    $.ajax({
+        url:'https://api.apispreadsheets.com/data/9002/',
+        type:'post',
+        data:$("#myForm").serializeArray(),
+        success: function(){
+          alert("Dados enviados com sucesso :)")
+          location.reload();
+        },
+        error: function(){
+          alert("Houve um problema :(")
+        }
+    });
+}
+</script>
+</head>
+<body>
+  <form id="myForm">
+    <fieldset>
+        <legend>Formulário de Cadastro</legend>
+
+    <fieldset>
+      <legend>Dados pessoais</legend>
+    <label>Nome Completo
+    <br/>
+    <input name="full_name" size="63"/>
+    <br/>
+    </label>
+    <label>Email
+    <br/>
+    <input type="email" name="email" />
+    </label> &emsp;
+    <label for="date">Data de Nascimento
+    <input type="date" name="date">
+    </textarea></label>
+    <br>Cidade <br>
+    <input type="text" name="city" > &emsp;
+    Estado
+    <select name="uf">
+      <option value="MT">MT</option>
+      <option value="GO">GO</option>
+      <option value="DF">DF</option>
+      <option value="MS">MS</option>
+    </select>
+    &emsp; <label>Sexo: <input type="radio" name="sex" value="M"> Masc. </label> <label> <input type="radio" name="sex" value="F"> Fem. </label>
+    </fieldset>
+
+    <br/>
+    <br/>
+    <fieldset>
+      <legend>Informações acadêmicas</legend>
+      <label for="rga">
+      RGA
+      <br/>
+      <input name="rga" /> </label>
+      <br/><br/>
+      Disciplinas do curso já realizadas (se aprovado) <br>
+      <label><input type="checkbox" name="ed1" value="x"> Estrutura de dados 1 &emsp; </label>
+      <label><input type="checkbox" name="ed2" value="x"> Estrutura de dados 2 &emsp;</label>
+      <label><input type="checkbox" name="p2" value="x"> Programação 2 &emsp;</label>
+      <label><input type="checkbox" name="p3" value="x"> Programação 3 &emsp;</label>
+      <br><br>
+      Horários reservados para aulas síncronas:
+      <table border="1">
+        <thead>
+        <tr>
+          <td></td> <th scope="col">Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th>
+        </tr>
+        <tr>
+        </thead>
+          <td>07:30 às 09:30</td> <td> <input type="checkbox" name="s1" value="x"> </td> <td><input type="checkbox" name="t1" value="x"></td> <td><input type="checkbox" name="qua1" value="x"></td> <td><input type="checkbox" name="qui1" value="x"></td> <td><input type="checkbox" name="sx1" value="x"></td>
+        </tr>
+        <tr>
+          <td>09:30 às 11:30</td> <td> <input type="checkbox" name="s2" value="x"> </td> <td><input type="checkbox" name="t2" value="x"></td> <td><input type="checkbox" name="qua2" value="x"></td> <td><input type="checkbox" name="qui2" value="x"></td> <td><input type="checkbox" name="sx2" value="x"></td>
+        </tr>
+        <tr>
+          <td>13:30 às 15:30</td> <td> <input type="checkbox" name="s3" value="x"> </td> <td><input type="checkbox" name="t3" value="x"></td> <td><input type="checkbox" name="qua3" value="x"></td> <td><input type="checkbox" name="qui3" value="x"></td> <td><input type="checkbox" name="sx3" value="x"></td>
+        </tr>
+        <tr>
+          <td>15:30 às 17:30</td> <td> <input type="checkbox" name="s4" value="x"> </td> <td><input type="checkbox" name="t4" value="x"></td> <td><input type="checkbox" name="qua4" value="x"></td> <td><input type="checkbox" name="qui4" value="x"></td> <td><input type="checkbox" name="sx4" value="x"></td>
+        </tr>
+
+      </table>
+    </fieldset>
+
+
+  </fieldset>
+
+  </form>
+  <button onclick="SubForm()">Enviar</button> <button type="reset" name="button">Limpar</button>
+
+</body>
+</html>
