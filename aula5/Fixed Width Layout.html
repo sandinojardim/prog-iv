@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://htmlandcssbook.com/code-samples/chapter-15/fixed-width-layout.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Fixed Width Layout</title>
+		<style type="text/css">
+			* {
+				font-family: Arial, Verdana, sans-serif;
+				color: #665544;
+				text-align: center;}
+			body {
+				width: 960px;
+				margin: 0 auto;}
+			#content {
+				overflow: auto;
+				height: 100%;}
+			#nav, #feature, #footer {
+				background-color: #efefef;
+				padding: 10px;
+				margin: 10px;}
+			.column1, .column2, .column3 {
+				background-color: #efefef;
+				width: 300px;
+				float: left;
+				margin: 10px;}
+			li {
+				display: inline;
+				padding: 5px;}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<h1>Logo</h1>
+			<div id="nav">
+				<ul>
+					<li><a href="http://htmlandcssbook.com/code-samples/chapter-15/fixed-width-layout.html">Home</a></li>
+					<li><a href="http://htmlandcssbook.com/code-samples/chapter-15/fixed-width-layout.html">Products</a></li>
+					<li><a href="http://htmlandcssbook.com/code-samples/chapter-15/fixed-width-layout.html">Services</a></li>
+					<li><a href="http://htmlandcssbook.com/code-samples/chapter-15/fixed-width-layout.html">About</a></li>
+					<li><a href="http://htmlandcssbook.com/code-samples/chapter-15/fixed-width-layout.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content">
+			<div id="feature">
+				<p>Feature</p>
+			</div>
+			<div class="article column1">
+				<p>Column One</p>
+			</div>
+			<div class="article column2">
+				<p>Column Two</p>
+			</div>
+			<div class="article column3">
+				<p>Column Three</p>
+			</div>
+		</div>
+		<div id="footer">
+			<p>© Copyright 2011</p>
+		</div>
+	
+</body></html>
