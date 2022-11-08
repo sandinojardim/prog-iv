@@ -1,13 +1,31 @@
+from ensurepip import bootstrap
+from wsgiref.validate import validator
 from flask import Flask, render_template
 from livereload import Server
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, RadioField
+from wtforms.validators import DataRequired
+from flask_bootstrap import Bootstrap5
+
 
 app = Flask(__name__)
 app.debug = True
+app.config['SECRET_KEY'] = 'chave secreta'
+bootstrap = Bootstrap5(app)
 
+class NameForm(FlaskForm):
+	name = StringField("Nome: ",validators=[DataRequired()])
+	gender = RadioField('Sexo: ',choices=[('M','Masculino'),('F','Feminino')])
+	submit = SubmitField('Enviar')
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def index():
-	return render_template('index.html')
+	name = None
+	form = NameForm()
+	if form.validate_on_submit():
+		name = form.name.data
+		form.name.data = ''
+	return render_template('index.html',form=form, name=name)
 
 
 
