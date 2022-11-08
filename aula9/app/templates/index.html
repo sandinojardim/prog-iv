@@ -1,7 +1,7 @@
 {% extends "base.html"%}
-{% import "bootstrap/form.html" as wtf %}
+{% import "bootstrap5/form.html" as wtf %}
 {%block title%}Flask Formulários {%endblock%}
-{%block content%}
+{%block page_content%}
 <h1>Hello, {%if name %} {{name}} {%else%} Stranger {%endif%}</h1>
 {{wtf.render_form(form)}}
 {%endblock%}

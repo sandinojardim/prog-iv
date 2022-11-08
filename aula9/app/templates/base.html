@@ -11,7 +11,7 @@
             {{ bootstrap.load_css() }}
         {% endblock %}
 
-        <title>Your page title</title>
+        <title>{%block title%}{%endblock%}</title>
         {% endblock %}
     </head>
     <body>
@@ -24,6 +24,7 @@
         {%endblock%}
         <!-- Your page content -->
         {% block content %}
+            <div class="container">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <ul class=flashes>
@@ -33,6 +34,10 @@
                     </ul>
                 {% endif %}
             {% endwith %}
+            <div class="page-header">
+                {%block page_content%} {%endblock%}
+            </div>
+            </div>
         {% endblock %}
 
         {% block scripts %}

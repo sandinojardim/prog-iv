@@ -1,6 +1,6 @@
 from ensurepip import bootstrap
 from wsgiref.validate import validator
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, session
 from livereload import Server
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, RadioField
@@ -19,13 +19,14 @@ class NameForm(FlaskForm):
 	submit = SubmitField('Enviar')
 
 @app.route('/',methods=['GET','POST'])
-def index():
+def index_db():
 	name = None
 	form = NameForm()
 	if form.validate_on_submit():
-		name = form.name.data
+		session['name'] = form.name.data#name = form.name.data
 		form.name.data = ''
-	return render_template('index.html',form=form, name=name)
+		return redirect(url_for('index'))
+	return render_template('index.html',form=form, name=session.get('name'))
 
 
 
