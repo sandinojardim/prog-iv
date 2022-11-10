@@ -1,0 +1,13 @@
+{% extends "base.html"%}
+{%block title%}Flask Lista {%endblock%}
+
+{%block page_content%}
+<table class="table">
+    <thead><th>ID</th><th>Nome</th><th>E-mail</th></thead>
+    {%for item in list%}
+    <tr>
+        <td>{{loop.index}}</td> <td>{{item.username}}</td> <td>{{item.email}}</td>
+    </tr>
+    {%endfor%}
+</table>
+{%endblock%}
