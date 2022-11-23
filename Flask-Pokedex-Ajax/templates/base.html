@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% block styles %}
+            <!-- Bootstrap CSS -->
+            {{ bootstrap.load_css() }}
+  {% endblock %}
+  <title>Pokedex</title>
+  <link rel="stylesheet" href={{url_for('static', filename='style.css')}}>
+</head>
+<body>
+  
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">Pokedex</span>
+    </nav>
+    
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <label for="name">Nome</label>
+        </div>
+        <div class="col-auto">
+          <input type="text" class="form-control" id="name" placeholder="Pesquisa por nome">
+        </div>
+        <div class="col-auto">
+          <label for="type">Tipo</label>
+        </div>
+        <div class="col-auto">
+          <select class="form-control" id="type">
+            <option> </option>
+            <option>grass</option>
+            <option>dragon</option>
+            <option>electric</option>
+          </select>
+        </div>
+        <div class="col"><button class="btn btn-primary" onclick="submit_entry()">Enviar</button></div>
+    
+  </div>
+  <main>
+    
+    <section class="pokedex">
+      {% block pokelist %}
+      {% endblock %}
+    </section>
+  </main>
+</body>
+
+{%block script%}
+<script>
+  function submit_entry(){
+    var name = document.getElementById("name");
+    var type = document.getElementById("type");
+
+    var entry = {
+      name: name.value,
+      type: type.value
+    }
+    fetch('/catch',{
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(entry),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type" : "application/json"
+      })
+    })
+    .then(function(response){
+      if(response.status !== 200){
+        console.log('Response status was not 200 ${response.status}');
+        return ;
+      }
+      response.json().then(function (data) {
+        //console.log(data[0])
+        render(data);
+        
+      })
+    })
+  }
+
+  function render(data){
+    var x = document.getElementsByClassName('pokedex')[0]
+    while(x.firstChild){
+      x.removeChild(x.lastChild)
+    }
+    for(var p = 0; p<data.length; p++){
+      var el = document.createElement("div");
+      el.setAttribute('class', 'pokemon')
+      el.setAttribute('data-name',data[p].name)
+      el.setAttribute('data-type','['+data[p].type+']')
+      el.setAttribute('tab-index',data[p].id)
+
+      //fig and image
+      var fig = document.createElement("figure")
+      fig.setAttribute('class','pokemon-figure')
+
+      var img = document.createElement("img")
+      img.setAttribute('src','static/img/'+data[p].name.toLowerCase()+'.png')
+      img.setAttribute('alt',data[p].name)
+
+      fig.appendChild(img);
+
+      //description
+      var desc = document.createElement("section")
+      desc.setAttribute('class','pokemon-description')
+      var id = document.createElement("span")
+      id.setAttribute('class','pokemon-id')
+      id.textContent = '#'+data[p].id
+      var h1 = document.createElement("h1")
+      h1.setAttribute('class','pokemon-name')
+      h1.textContent = data[p].name
+      var divtype = document.createElement("div")
+      divtype.setAttribute('class','pokemon-types')
+  
+      for (var i=0; i < data[p].type.length; i++){  
+        var typebg = document.createElement('span')
+        typebg.setAttribute('class','pokemon-type background-'+data[p].type[i]) //change
+        typebg.textContent = data[p].type[i]
+        divtype.appendChild(typebg)
+      }
+      
+
+      desc.appendChild(id)
+      desc.appendChild(h1)
+      desc.appendChild(divtype)
+
+      //stats
+      var stats = document.createElement("section")
+      stats.setAttribute('class','pokemon-stats')
+      for(var key in data[p].stats){
+        var statrow = document.createElement("div")
+        statrow.setAttribute('class','stat-row')
+
+        var stathp = document.createElement("div")
+        stathp.textContent = key
+
+        var statbar = document.createElement('div')
+        statbar.setAttribute('class','stat-bar')
+
+        var statbarbg = document.createElement('div')
+        statbarbg.setAttribute('class','stat-bar-bg')
+        statbarbg.setAttribute('style','width: '+data[p].stats[key]/2.5+'%')
+        statbarbg.textContent = data[p].stats[key]
+
+        statbar.appendChild(statbarbg)
+
+        
+        statrow.appendChild(stathp)
+        statrow.appendChild(statbar)
+
+        stats.appendChild(statrow)
+      }
+
+      el.appendChild(fig)
+      el.appendChild(desc)
+      el.appendChild(stats)
+
+      x.appendChild(el)
+    }
+    
+  }
+
+  function clearChildren(el){
+    while(el.firstChild){
+      el.removeChild(lastChild);
+    }
+  }
+</script>
+{%endblock%}
+</html>
