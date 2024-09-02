@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        {% block head %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% block styles %}
+            <!-- Bootstrap CSS -->
+            {{ bootstrap.load_css() }}
+        {% endblock %}
+
+        <title>{%block title%}{%endblock%}</title>
+        {% endblock %}
+    </head>
+    <body>
+        {%block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="#">Aula 10</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                    <a class="nav-item nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="/">Home </a>
+                    <!--a class="nav-item nav-link {% if request.endpoint == 'list' %}active{% endif %}" href="/list">Listar </a-->
+                
+              </div>
+            </div>
+         </div>
+        </nav>
+        {%endblock%}
+        {% block content %}
+            <div class="container">
+                {%block flash_messages%}
+                {%endblock%}
+                <div class="page-header">
+                    {%block page_content%} {%endblock%}
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block scripts %}
+            <!-- Optional JavaScript -->
+            {{ bootstrap.load_js() }}
+        {% endblock %}
+    </body>
+</html>
