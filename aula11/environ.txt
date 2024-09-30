@@ -1,4 +1,0 @@
-export SECRET_KEY='my_secret_key'
-export MAIL_USERNAME='soad.san'
-export MAIL_PASSWORD='mmsgvdnrprqizeoa'
-export FLASKY_ADMIN='soad.san@gmail.com'
