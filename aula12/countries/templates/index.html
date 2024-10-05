@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Buscar Informações de um País</h1>
+    <form id="countryForm">
+        <input type="text" id="countryInput" placeholder="Digite o nome do país" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('countryForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const country = document.getElementById('countryInput').value;
+            
+            const response = await fetch('/country', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ country: country })
+            });
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';  // Limpar resultados anteriores
+
+            if (response.ok) {
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <h2>${data.name}</h2>
+                    <p><strong>Capital:</strong> ${data.capital}</p>
+                    <p><strong>População:</strong> ${data.population}</p>
+                    <p><strong>Região:</strong> ${data.region}</p>
+                    <p><strong>Subregião:</strong> ${data.subregion}</p>
+                    <img src="${data.flag}" alt="Bandeira de ${data.name}" width="200">
+                `;
+            } else {
+                const errorData = await response.json();
+                resultDiv.innerHTML = `<p>${errorData.error}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
