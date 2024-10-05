@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Buscar Informações de um Pokémon</h1>
+    <form id="pokemonForm">
+        <input type="text" id="pokemonInput" placeholder="Digite o nome ou número do Pokémon">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('pokemonForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const pokemonInput = document.getElementById('pokemonInput').value.trim();
+            let url;
+
+            if (pokemonInput === '') {
+                // Se o campo estiver vazio, busca todos os Pokémon
+                url = '/api/pokemon';
+            } else {
+                const isId = !isNaN(pokemonInput);  // Verifica se a entrada é um número
+                url = isId ? `/api/pokemon/${pokemonInput}` : `/api/pokemon/name/${pokemonInput}`;  // Seleciona a rota
+            }
+
+            const response = await fetch(url, {
+                method: 'GET'
+            });
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';  // Limpar resultados anteriores
+
+            if (response.ok) {
+                const data = await response.json();
+
+                if (Array.isArray(data)) {
+                    // Exibe todos os Pokémon se a resposta for um array
+                    data.forEach(pokemon => {
+                        resultDiv.innerHTML += `
+                            <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} (ID: ${pokemon.number})</h2>
+                            <p><strong>Tipos:</strong> ${pokemon.types.join(', ')}</p>
+                            <img src="${pokemon.image_url}" alt="Imagem de ${pokemon.name}" width="200">
+                            <hr>
+                        `;
+                    });
+                } else {
+                    // Exibe apenas um Pokémon se a resposta não for um array
+                    resultDiv.innerHTML = `
+                        <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (ID: ${data.number})</h2>
+                        <p><strong>Tipos:</strong> ${data.types.join(', ')}</p>
+                        <img src="${data.image_url}" alt="Imagem de ${data.name}" width="200">
+                    `;
+                }
+            } else {
+                const errorData = await response.json();
+                resultDiv.innerHTML = `<p>${errorData.error}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
