@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Flasky - Home Page{% endblock %}
+
+{% block page_content %}
+
+	<div class="page-header">
+
+        <h1>424 Error</h1>​
+        <h2>Too Many Requests: This user has exceeded the allowed login attempts. Please try again later.
+        </h2>
+        <img src="{{ url_for('static', filename='images/429.jpg') }}" alt="shall-not-pass" width="600">
+
+	</div>
+
+{% endblock %}

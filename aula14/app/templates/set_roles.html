@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Manage User Roles</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Current Role</th>
+                <th>Change Role</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role.name }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('auth.set_roles') }}">
+                     {{ form.hidden_tag() }}
+                     <input type="hidden" name="user_id" value="{{ user.id }}">
+                     {{ form.role(class="form-control") }}
+                     {{ form.submit(class="btn btn-primary") }}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
